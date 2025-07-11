@@ -1,18 +1,28 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import {
+  FaUser,
+  FaPhone,
+  FaUsers,
+  FaCheckCircle,
+  FaUtensils,
+  FaBirthdayCake,
+} from "react-icons/fa";
 
 type RSVPFormData = {
   name: string;
-  email: string;
+  whatsapp: string;
   guests: number;
   attending: string;
+  foodPreference: string;
 };
 
 export default function RSVPForm() {
   const [form, setForm] = useState<RSVPFormData>({
     name: "",
-    email: "",
+    whatsapp: "",
     guests: 1,
     attending: "Yes",
+    foodPreference: "Veg",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -29,7 +39,7 @@ export default function RSVPForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL"; // replace this
+    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL"; // Replace this
 
     try {
       const res = await fetch(scriptURL, {
@@ -37,65 +47,128 @@ export default function RSVPForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+
       if (res.ok) setSubmitted(true);
-      else alert("Submission failed");
+      else alert("Something went wrong.");
     } catch {
-      alert("Network error");
+      alert("Submission failed.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-xl shadow">
-      <h2 className="text-2xl font-bold mb-4">RSVP for Dhara's Birthday 🎉</h2>
-      {submitted ? (
-        <div className="text-green-600 font-medium">Thank you for your response!</div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            name="name"
-            type="text"
-            placeholder="Your Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email Address"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <input
-            name="guests"
-            type="number"
-            min="1"
-            placeholder="Number of Guests"
-            value={form.guests}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
-          <select
-            name="attending"
-            value={form.attending}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          >
-            <option value="Yes">Yes, I’ll be there!</option>
-            <option value="No">Sorry, can’t make it</option>
-          </select>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Submit RSVP
-          </button>
-        </form>
-      )}
+    <div className="min-h-screen bg-pink-50 flex flex-col items-center justify-start py-10 px-4">
+      {/* 🎀 HEADER */}
+      <header className="text-center w-full max-w-4xl mb-8 bg-pink-100 border border-pink-200 rounded-xl shadow-sm p-6">
+        {/* Optional photo/logo */}
+        <img
+          src="/dhara.png"
+          className="w-20 h-20 mx-auto mb-3 rounded-full shadow"
+        />
+        <h1 className="text-4xl font-bold text-pink-700 mb-2 tracking-tight">
+          You're Invited!
+        </h1>
+        <h2 className="text-xl font-medium text-pink-600">
+          Celebrate Dhara’s 1<sup>st</sup> Birthday 🎉
+        </h2>
+        <p className="mt-2 text-pink-500 text-sm">
+          Kindly RSVP below to confirm your presence
+        </p>
+      </header>
+
+      {/* 📋 RSVP FORM */}
+      <div className="w-full max-w-4xl bg-white border border-pink-200 rounded-xl shadow-md p-6">
+        {submitted ? (
+          <div className="text-pink-700 text-xl font-semibold text-center">
+            🎀 Thank you! Your RSVP has been submitted.
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="grid gap-5">
+            <div>
+              <label className="block text-pink-800 font-medium mb-1">
+                Full Name *
+              </label>
+              <input
+                name="name"
+                required
+                type="text"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
+                className="w-full p-2 border border-pink-300 rounded focus:outline-pink-400"
+              />
+            </div>
+
+            <div>
+              <label className="block text-pink-800 font-medium mb-1">
+                WhatsApp Number *
+              </label>
+              <input
+                name="whatsapp"
+                required
+                type="tel"
+                placeholder="e.g. 9876543210"
+                pattern="[6-9]\d{9}"
+                title="Enter a valid 10-digit Indian mobile number"
+                value={form.whatsapp}
+                onChange={handleChange}
+                className="w-full p-2 border border-pink-300 rounded focus:outline-pink-400"
+              />
+            </div>
+
+            <div>
+              <label className="block text-pink-800 font-medium mb-1">
+                Number of Guests *
+              </label>
+              <input
+                name="guests"
+                type="number"
+                required
+                min={1}
+                value={form.guests}
+                onChange={handleChange}
+                className="w-full p-2 border border-pink-300 rounded focus:outline-pink-400"
+              />
+            </div>
+
+            <div>
+              <label className="block text-pink-800 font-medium mb-1">
+                Will you attend? *
+              </label>
+              <select
+                name="attending"
+                value={form.attending}
+                onChange={handleChange}
+                className="w-full p-2 border border-pink-300 rounded focus:outline-pink-400"
+              >
+                <option value="Yes">Yes, I’ll be there!</option>
+                <option value="No">Sorry, can’t make it</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-pink-800 font-medium mb-1">
+                Food Preference *
+              </label>
+              <select
+                name="foodPreference"
+                value={form.foodPreference}
+                onChange={handleChange}
+                className="w-full p-2 border border-pink-300 rounded focus:outline-pink-400"
+              >
+                <option value="Veg">Veg</option>
+                <option value="Non-Veg">Non-Veg</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="mt-4 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded shadow"
+            >
+              Submit RSVP
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
