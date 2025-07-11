@@ -16,6 +16,8 @@ type RSVPFormData = {
   foodPreference: string;
 };
 
+const scriptURL = import.meta.env.VITE_GOOGLE_SCRIPT_URL;
+
 export default function RSVPForm() {
   const [form, setForm] = useState<RSVPFormData>({
     name: "",
@@ -38,8 +40,6 @@ export default function RSVPForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    const scriptURL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL"; // Replace this
 
     try {
       const res = await fetch(scriptURL, {
