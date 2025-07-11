@@ -64,7 +64,8 @@ export default function RSVPForm() {
           src="/dhara.png"
           className="w-20 h-20 mx-auto mb-3 rounded-full shadow"
         />
-        <h1 className="text-4xl font-bold text-pink-700 mb-2 tracking-tight">
+        <h1 className="text-4xl font-bold text-pink-700 mb-2 tracking-tight flex items-center justify-center gap-2">
+          <FaBirthdayCake className="text-pink-500 w-7 h-7" />
           You're Invited!
         </h1>
         <h2 className="text-xl font-medium text-pink-600">
@@ -84,7 +85,8 @@ export default function RSVPForm() {
         ) : (
           <form onSubmit={handleSubmit} className="grid gap-5">
             <div>
-              <label className="block text-pink-800 font-medium mb-1">
+              <label className="block text-pink-800 font-medium mb-1 flex items-center gap-2">
+                <FaUser className="text-pink-500" />
                 Full Name *
               </label>
               <input
@@ -99,7 +101,8 @@ export default function RSVPForm() {
             </div>
 
             <div>
-              <label className="block text-pink-800 font-medium mb-1">
+              <label className="block text-pink-800 font-medium mb-1 flex items-center gap-2">
+                <FaPhone className="text-pink-500" />
                 WhatsApp Number *
               </label>
               <input
@@ -116,7 +119,8 @@ export default function RSVPForm() {
             </div>
 
             <div>
-              <label className="block text-pink-800 font-medium mb-1">
+              <label className="block text-pink-800 font-medium mb-1 flex items-center gap-2">
+                <FaUsers className="text-pink-500" />
                 Number of Guests *
               </label>
               <input
@@ -131,7 +135,8 @@ export default function RSVPForm() {
             </div>
 
             <div>
-              <label className="block text-pink-800 font-medium mb-1">
+              <label className="block text-pink-800 font-medium mb-1 flex items-center gap-2">
+                <FaCheckCircle className="text-pink-500" />
                 Will you attend? *
               </label>
               <select
@@ -146,7 +151,8 @@ export default function RSVPForm() {
             </div>
 
             <div>
-              <label className="block text-pink-800 font-medium mb-1">
+              <label className="block text-pink-800 font-medium mb-1 flex items-center gap-2">
+                <FaUtensils className="text-pink-500" />
                 Food Preference *
               </label>
               <select
