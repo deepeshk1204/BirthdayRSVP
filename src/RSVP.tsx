@@ -44,7 +44,6 @@ export default function RSVPForm() {
     try {
       const res = await fetch(scriptURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
